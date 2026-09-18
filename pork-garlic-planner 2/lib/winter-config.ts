@@ -1,0 +1,9 @@
+// Replace estimates here when the trainer supplies official Year 2 rules.
+export const ACTUAL = {cash:76796,profit:1296,ownedMachines:1,machineCost:28000,depreciation:3500,remainingLife:7,loans:0,taxLoss:0};
+export const RULES = {milkTreatment:"Purchased milk is fully expensed. Unsold ice cream and unused milk have no carryforward value.",marketForecast:null,officialYear2Confirmed:false};
+export const cashCostKeys = ["milk","rent","purchase","maintenance","transport","market","salaries","bonus","interest","repayment","tax"] as const;
+export type CashCostKey = typeof cashCostKeys[number];
+export type Plan = {milk:number;production:number;requested:number;allocated:number;price:number;market:number;premises:string;rent:number;existing:number;additional:number;machinePrice:number;life:number;maintenanceRate:number;capacity:number;milkPrice:number;transportRate:number;salaries:number;bonusRate:number;taxRate:number;borrowing:number;interestRate:number;repayment:number;taxLoss:number;borrowingBefore:boolean;before:Record<CashCostKey,boolean>};
+const common:Plan = {milk:1,production:30000,requested:30000,allocated:28000,price:2,market:3000,premises:"Premises estimate",rent:4000,existing:1,additional:0,machinePrice:28000,life:8,maintenanceRate:1300,capacity:35000,milkPrice:20000,transportRate:.1,salaries:8000,bonusRate:5,taxRate:10,borrowing:0,interestRate:5,repayment:0,taxLoss:0,borrowingBefore:true,before:{milk:true,rent:true,purchase:true,maintenance:true,transport:false,market:true,salaries:true,bonus:false,interest:false,repayment:false,tax:false}};
+// Illustrative plans, not actual Year 1 production or confirmed Year 2 choices.
+export function defaults(id:"A"|"B"):Plan {return {...common,...(id==="B"?{milk:.9,production:27000,requested:27000,allocated:26000,market:2000,rent:3500}:{}),before:{...common.before}}}
